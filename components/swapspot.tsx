@@ -694,7 +694,11 @@ export function SwapSpot() {
     <>
       <div id="app" data-view={view}>
         <header className="topbar">
-          <div className="brand"><div className="brand-mark">P</div><span>Swap<b>Spot</b></span></div>
+          <div className="brand">
+            {/* two files of the same logo: light letters for the dark theme, dark letters for the light theme (see .brand-logo in styles.css) */}
+            <Image className="brand-logo for-dark" src="/assets/logo-on-dark.png" alt="SwapSpot" width={148} height={32} unoptimized />
+            <Image className="brand-logo for-light" src="/assets/logo.png" alt="SwapSpot" width={148} height={32} unoptimized />
+          </div>
           <div className="status-pills"><div className="pill">Demo location</div><div className={`pill ${speech.listening ? "on" : ""}`}>Mic</div><div className={`pill ${speech.speaking ? "on" : ""}`}>Voice</div><div className={`pill ${dataPill.tone}`} id="pillData" data-mode={dataMode} title={dataPill.title}>{dataPill.label}</div></div>
           <button className="icon-btn" id="insightsBtn" title="Insights (DIKW)" aria-label="Insights" onClick={() => go("insights")}><Icon name="chart" /></button>
           <button className={`icon-btn ${account ? "signed" : ""}`} id="accountBtn" title={account ? "Your account" : "Sign in"} aria-label={account ? "Your account" : "Sign in"} onClick={() => go("account")}><Icon name="user" /><span className="acct-initial" id="acctInitial">{account ? (driverName || "?").trim().charAt(0).toUpperCase() : ""}</span></button>

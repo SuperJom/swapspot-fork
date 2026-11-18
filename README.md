@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="public/assets/logo-on-dark.png">
+    <img src="public/assets/logo.png" alt="SwapSpot" width="300">
+  </picture>
+</p>
+
 # SwapSpot — Voice Parking Finder Demo
 
 A voice-first parking finder demonstration built with Next.js and a Supabase (Postgres) database. **Location, sensor readings, payments, camera detection, and route previews are simulated. Bookings are saved in the project database, but they do not reserve a real parking space and no money is taken. Do not use the demo for real reservations or driving directions.**
@@ -109,13 +116,13 @@ The publishable key is meant to be public: row level security in the database de
 
 ```
 swapspot/
-├── app/                  # Next.js layout and page
+├── app/                  # Next.js layout and page, and the browser tab icons
 ├── components/           # client-side React views, hooks, and browser integrations
 ├── lib/                  # domain logic, the data layer (backend.ts), and generated database types
 ├── supabase/migrations/  # the database: schema, functions, security, DIKW views, sample data, scheduled jobs
 ├── docs/database.md      # database design: ER diagram, data dictionary, security, DIKW
 ├── docs/screenshots/     # pictures used in this README and in the course reports
-├── public/assets/        # images and animations
+├── public/assets/        # images and animations, and the logo (one file for dark and one for light backgrounds)
 ├── styles.css            # app styles
 ├── tests/                # focused domain tests
 ├── .env.example          # optional settings for another Supabase project
