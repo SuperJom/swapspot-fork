@@ -2,6 +2,8 @@
 
 A voice-first parking finder demonstration built with Next.js and a Supabase (Postgres) database. **Location, sensor readings, payments, camera detection, and route previews are simulated. Bookings are saved in the project database, but they do not reserve a real parking space and no money is taken. Do not use the demo for real reservations or driving directions.**
 
+**Live demo:** <https://swapspot-demo.netlify.app> — a public test version on Netlify, built from this code. Anyone can open it and create a test account. It is a demonstration, so do not enter real personal details or a password you use elsewhere.
+
 ## Features
 
 - **Voice input & output** — Web Speech API (SpeechRecognition + SpeechSynthesis), optional "Hey SwapSpot" continuous listening, and spacebar push-to-talk. A typed input is also available.
@@ -82,6 +84,18 @@ The full design is in [docs/database.md](docs/database.md): the ER diagram, a da
 
 With Supabase's default Auth settings a new account has to confirm its email address before it can sign in. For a classroom demo, turn "Confirm email" off in the Supabase dashboard (Authentication section, providers page, Email).
 
+## Deploy to Netlify
+
+The live demo runs on Netlify with continuous deployment: the Netlify project is linked to the GitHub repository, and every push to the deployed branch builds and publishes a new version at the same address. Nothing has to be deleted or set up again to ship a change.
+
+1. In Netlify, choose **Add new project → Import an existing project**, pick the GitHub repository, and choose the branch to deploy.
+2. Keep the detected settings. `netlify.toml` sets the build command (`npm run build`), the publish folder (`.next`), and the Node version. Netlify adds its Next.js runtime by itself.
+3. No environment variables are required. To point a deployment at another Supabase project, set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` in the Netlify project and deploy again.
+4. A new Netlify project can start as private (visible to the team only). Use **Make public** in the Netlify project when testers outside the team should open it.
+5. For a public test, turn off **Confirm email** in Supabase (Authentication → Sign In / Providers), or connect your own email provider. Supabase's built-in email service is rate-limited and meant for testing.
+
+Accounts, bookings, and payments are stored in Supabase, not in the deployed site, so publishing a new version does not touch them.
+
 ## Deploy to Vercel
 
 1. Import the Git repository into Vercel and select the repository root. Vercel detects the Next.js framework and build settings.
@@ -105,6 +119,7 @@ swapspot/
 ├── styles.css            # app styles
 ├── tests/                # focused domain tests
 ├── .env.example          # optional settings for another Supabase project
+├── netlify.toml          # build settings for the Netlify deployment
 └── index.html            # original standalone demo, retained for reference
 ```
 

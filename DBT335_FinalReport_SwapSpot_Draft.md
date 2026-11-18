@@ -334,14 +334,14 @@ No custom application server, live operator API, MQTT broker, RFID reader,
 vehicle sensor, payment provider, or AI service is connected in the current repository.
 ```
 
-The project uses Next.js, React, and TypeScript. Leaflet and OpenStreetMap support the map display. Supabase provides the database, authentication, the data API, and scheduled jobs. The README describes Vercel as a possible deployment path and instructs the team to validate a preview over HTTPS; an actual deployed web environment is not established by the codebase.
+The project uses Next.js, React, and TypeScript. Leaflet and OpenStreetMap support the map display. Supabase provides the database, authentication, the data API, and scheduled jobs. A public test version is deployed on Netlify at <https://swapspot-demo.netlify.app>. Netlify is linked to the GitHub repository and builds a new version on every push to the deployed branch; `netlify.toml` holds the build settings. The README also describes Vercel as an alternative.
 
 | Infrastructure element | Current evidence |
 |---|---|
 | User touchpoint | Browser-based application; typed input and microphone interaction |
 | Location source | Static initial demo coordinates; selecting an "I am at" named lot derives a nearby simulated position |
 | Transport / backend API | HTTPS calls from the browser to the Supabase Auth and Data APIs through `@supabase/supabase-js` (`lib/backend.ts`). There is no custom application server. |
-| Cloud runtime currently configured | Database and authentication: a Supabase project (managed PostgreSQL 17, Singapore region). Web hosting:  |
+| Cloud runtime currently configured | Database and authentication: a Supabase project (managed PostgreSQL 17, Singapore region). Web hosting: Netlify (free plan), with continuous deployment from GitHub. Organizational owner of both accounts:  |
 | Application database | PostgreSQL on Supabase, defined by the migrations in `supabase/migrations/` |
 | IoT / MQTT / RFID integration | None. A simulated sensor feed (`private.sensor_tick`, run by `pg_cron`) stands in for sensors. |
 | Live camera input |  |
@@ -439,7 +439,7 @@ The other views (map, lot list, detail, settings, simulated route, spot grid, ch
 | Dashboard deliverable | Detail |
 |---|---|
 | Executive BI dashboard URL |  |
-| Operational BI dashboard URL | In-application Insights screen, "For operators" tab (the deployed application address followed by `#insights`):  |
+| Operational BI dashboard URL | In-application Insights screen, "For operators" tab: <https://swapspot-demo.netlify.app/#insights> (the platform totals appear after signing in with a test account) |
 | Dashboard screenshots / annotations | Figures 4.1 and 4.2 below (in-application Insights screen; files in `docs/screenshots/`). External BI dashboard:  |
 | Backup walkthrough video URL |  |
 
@@ -528,7 +528,7 @@ An account-registration form now exists. It asks for a name, an email address, a
 | Availability — database unreachable | When the database cannot be reached at start-up, or after two missed refreshes while connected, the application shows "Offline demo data", runs its built-in simulation without saving, and reconnects by itself. The booking functions run housekeeping themselves, so the rules hold if the scheduler stops. The README notes that a free-plan project is paused after about a week without activity. | Backups, uptime target, and incident owner:  |
 | Availability — network / map tile failure | Map displays an error if tiles fail to load | Offline operating procedure / alternate map source:  |
 | Availability — browser or device failure | A booking in progress is stored in the database and is restored after a reload or a sign-in on another device |  |
-| Encryption in transit / deployment configuration | The application calls the Supabase project over HTTPS. README recommends HTTPS validation for a deployment preview; no deployment configuration is evidenced here. | Production TLS configuration and ownership:  |
+| Encryption in transit / deployment configuration | The application calls the Supabase project over HTTPS, and the public demo is served over HTTPS by Netlify (build settings in `netlify.toml`). | Production TLS configuration and ownership:  |
 | 72-hour breach notification plan |  |  |
 | AI fairness / bias controls | No AI model or protected-attribute decision logic is present |  |
 
@@ -594,7 +594,7 @@ The repository contains no hosting quote, API pricing, operator fees, labor base
 
 | Feasibility / ROI input | Detail |
 |---|---|
-| Cloud, tooling, and integration costs | The prototype runs on Supabase's free plan and needs no paid service. Production costs:  |
+| Cloud, tooling, and integration costs | The prototype runs on the free plans of Supabase and Netlify and needs no paid service. Production costs:  |
 | Current staff hours / process baseline |  |
 | Expected hours saved |  |
 | Current error rate / expected reduction |  |
@@ -718,7 +718,8 @@ create unique index bookings_one_live_per_user on public.bookings (user_id) wher
 
 Key implementation files reviewed for this draft:
 
-- `README.md` — project scope, demo limitations, technologies, database, and deployment notes.
+- `README.md` — project scope, demo limitations, technologies, database, deployment notes, and the link to the live demo.
+- `netlify.toml` — build settings of the Netlify deployment.
 - `docs/database.md` — database design: ER diagram, data dictionary, rules, security, DIKW, and scheduled jobs.
 - `supabase/migrations/` — SQL schema, functions, row level security, DIKW views, sample data, and scheduled jobs.
 - `lib/backend.ts` — the data layer; the only module that calls the database.

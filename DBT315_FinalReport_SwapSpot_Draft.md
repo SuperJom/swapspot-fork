@@ -198,7 +198,7 @@ The project is a website made with Next.js, React, and TypeScript. It uses Leafl
 
 | Project access item | Link |
 |---|---|
-| Public demo link |  |
+| Public demo link | <https://swapspot-demo.netlify.app> (a test version on Netlify, connected to the project database; demonstration only) |
 | Backup demo video |  |
 | Design board / Miro link |  |
 | Database design (diagram of the tables and a list of every column) | `docs/database.md` in the project |
@@ -452,7 +452,7 @@ Example from the app:
 
 | Item | Link / location |
 |---|---|
-| Prototype link |  |
+| Prototype link | <https://swapspot-demo.netlify.app> |
 | Backup screen-recording video |  |
 | Design board / Miro canvas |  |
 | Interview notes / test recordings |  |
